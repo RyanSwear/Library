@@ -101,6 +101,7 @@ function displayLibrary(){
     for(let i = 0; i < myLibrary.length; i++)
     {
         const bookDisplayed = document.createElement('div');
+        bookDisplayed.name = myLibrary[i].title;
         bookDisplayed.classList.add('book');
 
         const bookTitle = document.createElement('h1');
@@ -113,6 +114,22 @@ function displayLibrary(){
         const bookPages = document.createElement('li');
         bookPages.innerText = "Page Count: " + myLibrary[i].pages;
 
+        const readBtn = document.createElement('button');
+        readBtn.innerText = 'Mark Read';
+        readBtn.name = bookTitle.innerText;
+        readBtn.addEventListener('click', function (){
+            markRead(readBtn.name);
+            bookDisplayed.style.backgroundColor = 'green';
+        })
+
+        const removeBtn = document.createElement('button');
+        removeBtn.innerText = "Remove Book";
+        removeBtn.name = bookTitle.innerText;
+        removeBtn.addEventListener('click', function(){
+            removeBook(removeBtn.name);
+            refreshDisplay();
+        })
+
         attributeList.appendChild(bookAuthor);
         attributeList.appendChild(bookPages);
         if (myLibrary[i].read)
@@ -124,6 +141,8 @@ function displayLibrary(){
         }
         bookDisplayed.appendChild(bookTitle);
         bookDisplayed.appendChild(attributeList);
+        bookDisplayed.appendChild(readBtn);
+        bookDisplayed.appendChild(removeBtn);
 
         display.appendChild(bookDisplayed);
     }
@@ -143,6 +162,25 @@ function removeForm(){
     while(document.getElementById('formDisplay').hasChildNodes())
     {
         document.getElementById('formDisplay').removeChild(document.getElementById('formDisplay').firstChild);
+    }
+}
+function markRead(name){
+    for(let i = 0; i < myLibrary.length; i++)
+    {
+        if (myLibrary[i].title == name)
+        {
+            myLibrary[i].read = true;
+        }
+    }
+}
+
+function removeBook(name){
+    for(let i = 0; i < myLibrary.length; i++)
+    {
+        if (myLibrary[i].title == name)
+        {
+            myLibrary.splice(i,1);
+        }
     }
 }
 
