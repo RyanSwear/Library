@@ -2,3 +2,10 @@
     display: flex;
     flex-direction: column;
 }
+.book{
+    border: solid 2px black;
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
