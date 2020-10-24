@@ -77,12 +77,13 @@ function showNewBookForm(){
     const submit = document.createElement('button');
     submit.innerText = 'Submit';
     submit.addEventListener('click', function(){
-        let createdBook = new Book(titleInput.value, authorInput.value, pageInput.value);
+        let createdBook = new Book(titleInput.value, authorInput.value, pageInput.value, false);
         addBook(createdBook);
-        refreshDisplay();
+        console.log(myLibrary);
         removeForm();
+        refreshDisplay();
         document.getElementById('newBook').disabled = false;
-    })
+    });
 
     newBookForm.appendChild(titleLabel);
     newBookForm.appendChild(titleInput);
@@ -125,6 +126,23 @@ function displayLibrary(){
         bookDisplayed.appendChild(attributeList);
 
         display.appendChild(bookDisplayed);
+    }
+}
+
+function refreshDisplay(){
+    while(document.getElementById('books').hasChildNodes())
+    {
+        document.getElementById('books').removeChild(document.getElementById('books').firstChild);
+    }
+    displayNewBookBtn();
+
+    displayLibrary();
+}
+
+function removeForm(){
+    while(document.getElementById('formDisplay').hasChildNodes())
+    {
+        document.getElementById('formDisplay').removeChild(document.getElementById('formDisplay').firstChild);
     }
 }
 
